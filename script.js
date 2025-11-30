@@ -3,6 +3,20 @@ const moviesGrid = document.querySelector('.movies-grid');
 
 let movies = [];
 
+// Load movies from local storage on page load
+function loadMovies() {
+    const savedMovies = localStorage.getItem('movies');
+    if (savedMovies) {
+        movies = JSON.parse(savedMovies);
+        displayMovies();
+    }
+}
+
+// Save movies to local storage
+function saveMovies() {
+    localStorage.setItem('movies', JSON.stringify(movies));
+}
+
 addButton.addEventListener('click', (e) => {
     // Only show form if clicking on the add button itself, not its children (like form buttons)
     if (!addButton.classList.contains('form-active') && e.target === addButton || e.target.classList.contains('plus-box') || e.target === addButton.querySelector('p')) {
@@ -78,6 +92,7 @@ function addMovie() {
     };
 
     movies.push(movie);
+    saveMovies();
     displayMovies();
     closeForm();
 }
@@ -116,5 +131,9 @@ function displayMovies() {
 
 function deleteMovie(id) {
     movies = movies.filter(movie => movie.id !== id);
+    saveMovies();
     displayMovies();
 }
+
+// Load movies when page loads
+loadMovies();

@@ -1,3 +1,21 @@
+EKSEMPEL LISTE (copy paste):
+
+The Lord of the Rings: The Fellowship of the Ring
+https://m.media-amazon.com/images/M/MV5BNzIxMDQ2YTctNDY4MC00ZTRhLTk4ODQtMTVlOWY4NTdiYmMwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg
+Fantasy
+
+Stranger Things Season 5
+https://images.justwatch.com/poster/320429069/s718/season-5.jpg
+Sci-Fi
+
+The Shawshank Redemption
+https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg
+drama
+
+---
+
+OPPGAVE:
+
 Film og serieliste: Et system for å logge hvilke filmer og serier som er sett, samt gi vurderinger.
 
 I denne oppgaven skal du bygge en applikasjon som håndterer og manipulerer brukerdata ved hjelp av localStorage. Applikasjonen skal kunne lagre, filtrere, sortere og analysere data på en effektiv måte.
@@ -52,7 +70,7 @@ Bruk av destructuring:
 
 ---
 
-Notater:
+NOTATER:
 
 blank side med header, og et "add film or series" element.
 
@@ -85,9 +103,4 @@ PROVIDE A script.js FILE AND KEEP THE CODE EXTREMELY SIMPLE.
 
 ---
 
-Eksempel:
-The Lord of the Rings: The Fellowship of the Ring
-J.R.R. Tolkien
-https://m.media-amazon.com/images/M/MV5BNzIxMDQ2YTctNDY4MC00ZTRhLTk4ODQtMTVlOWY4NTdiYmMwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg
-Fantasy
-5
+
