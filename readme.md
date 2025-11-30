@@ -2,11 +2,7 @@
 
 En enkel og intuitiv webapplikasjon for å organisere og administrere din personlige film- og seriesamling.
 
-## Kom i gang
-
-Åpne `index.html` i nettleseren din for å starte applikasjonen. Klikk på "+ add movie or series" for å legge til ditt første element.
-
-### Eksempeldata for testing:
+### Eksempeldata for testing (COPY PASTE):
 
 **The Lord of the Rings: The Fellowship of the Ring**
 - Cover: `https://m.media-amazon.com/images/M/MV5BNzIxMDQ2YTctNDY4MC00ZTRhLTk4ODQtMTVlOWY4NTdiYmMwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg`
