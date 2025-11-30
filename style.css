@@ -126,10 +126,22 @@ body {
 }
 
 .movie-card {
-  background: white;
-  border: 1px solid #ddd;
-  position: relative;
-  padding-bottom: 50px;
+    background: white;
+    border: 1px solid #ddd;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.movie-card.form-active {
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+.movie-card.form-active img,
+.movie-card.form-active .movie-info,
+.movie-card.form-active .card-buttons {
+    display: none;
 }
 
 .movie-card img {
@@ -159,13 +171,26 @@ body {
     font-size: 1.2rem;
 }
 
-.delete-btn {
+.card-buttons {
     position: absolute;
     bottom: 0;
     width: 100%;
+    display: flex;
+}
+
+.edit-btn,
+.delete-btn {
+    flex: 1;
     padding: 10px;
-    background: #ff5252;
-    color: white;
     border: none;
     cursor: pointer;
+    color: white;
+}
+
+.edit-btn {
+    background: #667eea;
+}
+
+.delete-btn {
+    background: #ff5252;
 }

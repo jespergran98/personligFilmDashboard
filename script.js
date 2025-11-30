@@ -2,6 +2,7 @@ const addButton = document.querySelector('.add-button');
 const moviesGrid = document.querySelector('.movies-grid');
 
 let movies = [];
+let editingId = null;
 
 // Load movies from local storage on page load
 function loadMovies() {
@@ -18,61 +19,54 @@ function saveMovies() {
 }
 
 addButton.addEventListener('click', (e) => {
-    // Only show form if clicking on the add button itself, not its children (like form buttons)
-    if (!addButton.classList.contains('form-active') && e.target === addButton || e.target.classList.contains('plus-box') || e.target === addButton.querySelector('p')) {
-        showAddMovieForm();
+    if (!addButton.classList.contains('form-active') && (e.target === addButton || e.target.classList.contains('plus-box') || e.target === addButton.querySelector('p'))) {
+        showForm();
     }
 });
 
-function showAddMovieForm() {
-    addButton.classList.add('form-active');
+function showForm(movie = null, cardElement = null) {
+    const container = cardElement || addButton;
+    const isEdit = movie !== null;
+    
+    if (isEdit) {
+        editingId = movie.id;
+        cardElement.classList.add('form-active');
+    } else {
+        container.classList.add('form-active');
+    }
     
     const formHTML = `
         <div class="movie-form">
-            <h2>Add Movie/Series</h2>
-            <input type="text" id="title" placeholder="Title" required>
-            <input type="text" id="cover" placeholder="Image URL" required>
+            <h2>${isEdit ? 'Edit' : 'Add'} Movie/Series</h2>
+            <input type="text" id="title" placeholder="Title" value="${movie?.title || ''}" required>
+            <input type="text" id="cover" placeholder="Image URL" value="${movie?.cover || ''}" required>
             <select id="genre" required>
                 <option value="">Select Genre</option>
-                <option value="Action">Action</option>
-                <option value="Comedy">Comedy</option>
-                <option value="Drama">Drama</option>
-                <option value="Sci-Fi">Sci-Fi</option>
-                <option value="Horror">Horror</option>
-                <option value="Fantasy">Fantasy</option>
-                <option value="Romance">Romance</option>
-                <option value="Crime">Crime</option>
-                <option value="Western">Western</option>
-                <option value="Musical">Musical</option>
-                <option value="Animation">Animation</option>
-                <option value="Documentary">Documentary</option>
+                ${['Action', 'Comedy', 'Drama', 'Sci-Fi', 'Horror', 'Fantasy', 'Romance', 'Crime', 'Western', 'Musical', 'Animation', 'Documentary'].map(g => 
+                    `<option value="${g}" ${movie?.genre === g ? 'selected' : ''}>${g}</option>`
+                ).join('')}
             </select>
             <div class="rating-input">
                 <label>Rating:</label>
                 <select id="rating" required>
                     <option value="">Select Rating</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    ${[1,2,3,4,5].map(r => `<option value="${r}" ${movie?.rating === r ? 'selected' : ''}>${r}</option>`).join('')}
                 </select>
             </div>
             <div class="form-buttons">
-                <button class="add-movie-btn">Add</button>
+                <button class="save-btn">${isEdit ? 'Save' : 'Add'}</button>
                 <button class="cancel-btn">Cancel</button>
             </div>
         </div>
     `;
     
-    addButton.insertAdjacentHTML('beforeend', formHTML);
+    container.insertAdjacentHTML('beforeend', formHTML);
     
-    // Add event listeners to the buttons
-    document.querySelector('.add-movie-btn').addEventListener('click', addMovie);
+    document.querySelector('.save-btn').addEventListener('click', () => saveMovie(isEdit));
     document.querySelector('.cancel-btn').addEventListener('click', closeForm);
 }
 
-function addMovie() {
+function saveMovie(isEdit) {
     const title = document.getElementById('title').value;
     const cover = document.getElementById('cover').value;
     const genre = document.getElementById('genre').value;
@@ -83,29 +77,29 @@ function addMovie() {
         return;
     }
 
-    const movie = {
-        id: Date.now(),
-        title: title,
-        cover: cover,
-        genre: genre,
-        rating: parseInt(rating)
-    };
+    if (isEdit) {
+        const index = movies.findIndex(m => m.id === editingId);
+        movies[index] = { id: editingId, title, cover, genre, rating: parseInt(rating) };
+    } else {
+        movies.push({ id: Date.now(), title, cover, genre, rating: parseInt(rating) });
+    }
 
-    movies.push(movie);
     saveMovies();
     displayMovies();
     closeForm();
 }
 
 function closeForm() {
-    const form = document.querySelector('.movie-form');
-    if (form) form.remove();
+    document.querySelector('.movie-form')?.remove();
     addButton.classList.remove('form-active');
+    if (editingId) {
+        document.querySelector(`[data-id="${editingId}"]`)?.closest('.movie-card')?.classList.remove('form-active');
+        editingId = null;
+    }
 }
 
 function displayMovies() {
-    const existingCards = document.querySelectorAll('.movie-card');
-    existingCards.forEach(card => card.remove());
+    document.querySelectorAll('.movie-card').forEach(card => card.remove());
 
     const moviesHTML = movies.map(movie => `
         <div class="movie-card">
@@ -115,25 +109,30 @@ function displayMovies() {
                 <p class="genre">${movie.genre}</p>
                 <p class="rating">${'★'.repeat(movie.rating)}${'☆'.repeat(5 - movie.rating)}</p>
             </div>
-            <button class="delete-btn" data-id="${movie.id}">Delete</button>
+            <div class="card-buttons">
+                <button class="edit-btn" data-id="${movie.id}">Edit</button>
+                <button class="delete-btn" data-id="${movie.id}">Delete</button>
+            </div>
         </div>
     `).join('');
 
     moviesGrid.insertAdjacentHTML('beforeend', moviesHTML);
     
-    // Add event listeners to delete buttons
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = parseInt(this.dataset.id);
+            const movie = movies.find(m => m.id === id);
+            showForm(movie, this.closest('.movie-card'));
+        });
+    });
+    
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            deleteMovie(parseInt(this.dataset.id));
+            movies = movies.filter(m => m.id !== parseInt(this.dataset.id));
+            saveMovies();
+            displayMovies();
         });
     });
 }
 
-function deleteMovie(id) {
-    movies = movies.filter(movie => movie.id !== id);
-    saveMovies();
-    displayMovies();
-}
-
-// Load movies when page loads
 loadMovies();
