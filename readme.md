@@ -3,14 +3,17 @@ EKSEMPEL LISTE (copy paste):
 The Lord of the Rings: The Fellowship of the Ring
 https://m.media-amazon.com/images/M/MV5BNzIxMDQ2YTctNDY4MC00ZTRhLTk4ODQtMTVlOWY4NTdiYmMwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg
 Fantasy
+rating: 5
 
 Stranger Things Season 5
 https://images.justwatch.com/poster/320429069/s718/season-5.jpg
 Sci-Fi
+rating: 3
 
 The Shawshank Redemption
 https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg
 drama
+rating: 4
 
 ---
 
