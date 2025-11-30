@@ -1,5 +1,5 @@
 const addButton = document.querySelector('.add-button');
-const mainSection = document.querySelector('.main-section');
+const moviesGrid = document.querySelector('.movies-grid');
 
 let movies = [];
 
@@ -49,7 +49,7 @@ function showAddMovieForm() {
         </div>
     `;
     
-    mainSection.insertAdjacentHTML('afterbegin', formHTML);
+    moviesGrid.insertAdjacentHTML('beforebegin', formHTML);
 }
 
 function addMovie() {
@@ -82,26 +82,22 @@ function closeForm() {
 }
 
 function displayMovies() {
-    let existingGrid = document.querySelector('.movies-grid');
-    if (existingGrid) existingGrid.remove();
+    const existingCards = document.querySelectorAll('.movie-card');
+    existingCards.forEach(card => card.remove());
 
-    const gridHTML = `
-        <div class="movies-grid">
-            ${movies.map(movie => `
-                <div class="movie-card">
-                    <img src="${movie.cover}" alt="${movie.title}">
-                    <div class="movie-info">
-                        <h3>${movie.title}</h3>
-                        <p class="genre">${movie.genre}</p>
-                        <p class="rating">${'★'.repeat(movie.rating)}${'☆'.repeat(5 - movie.rating)}</p>
-                    </div>
-                    <button class="delete-btn" onclick="deleteMovie(${movie.id})">Delete</button>
-                </div>
-            `).join('')}
+    const moviesHTML = movies.map(movie => `
+        <div class="movie-card">
+            <img src="${movie.cover}" alt="${movie.title}">
+            <div class="movie-info">
+                <h3>${movie.title}</h3>
+                <p class="genre">${movie.genre}</p>
+                <p class="rating">${'★'.repeat(movie.rating)}${'☆'.repeat(5 - movie.rating)}</p>
+            </div>
+            <button class="delete-btn" onclick="deleteMovie(${movie.id})">Delete</button>
         </div>
-    `;
+    `).join('');
 
-    addButton.insertAdjacentHTML('afterend', gridHTML);
+    moviesGrid.insertAdjacentHTML('beforeend', moviesHTML);
 }
 
 function deleteMovie(id) {
