@@ -58,22 +58,14 @@ blank side med header, og et "add film or series" element.
 
 Hvert dataelement (film eller serie) i localStorage bør være et JavaScript-objekt med følgende egenskaper:
 
+
 UUID
-tittel
-type (film/serie)
-sjanger
-forfatter
-vurdering
-status (brukeren kan velge om dette er en film som allerede er sett, bør sees, anbefalt etc)
-dato elementet ble lagt til
 
-type:
-film
-serie
+Title
 
-vurdering (1-5)
+image/ cover art
 
-Sjangere:
+Genre:
 Action
 Comedy
 Drama
@@ -86,3 +78,16 @@ Western
 Musical
 Animation
 Documentary
+
+rating (1-5)
+
+PROVIDE A script.js FILE AND KEEP THE CODE EXTREMELY SIMPLE.
+
+---
+
+Eksempel:
+The Lord of the Rings: The Fellowship of the Ring
+J.R.R. Tolkien
+https://m.media-amazon.com/images/M/MV5BNzIxMDQ2YTctNDY4MC00ZTRhLTk4ODQtMTVlOWY4NTdiYmMwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg
+Fantasy
+5
