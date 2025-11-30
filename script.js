@@ -43,6 +43,8 @@ function showForm(movie = null, cardElement = null) {
             <h2>${isEdit ? 'Edit' : 'Add'} Movie/Series</h2>
             <input type="text" id="title" placeholder="Title" value="${movie?.title || ''}" required>
             <input type="text" id="cover" placeholder="Image URL" value="${movie?.cover || ''}" required>
+            <input type="text" id="author" placeholder="Author/Director" value="${movie?.author || ''}" required>
+            <input type="number" id="year" placeholder="Release Year" value="${movie?.year || ''}" min="1800" max="2100" required>
             <select id="genre" required>
                 <option value="">Select Genre</option>
                 ${['Action', 'Comedy', 'Drama', 'Sci-Fi', 'Horror', 'Fantasy', 'Romance', 'Crime', 'Western', 'Musical', 'Animation', 'Documentary'].map(g => 
@@ -72,19 +74,21 @@ function showForm(movie = null, cardElement = null) {
 function saveMovie(isEdit) {
     const title = document.getElementById('title').value;
     const cover = document.getElementById('cover').value;
+    const author = document.getElementById('author').value;
+    const year = document.getElementById('year').value;
     const genre = document.getElementById('genre').value;
     const rating = document.getElementById('rating').value;
 
-    if (!title || !cover || !genre || !rating) {
+    if (!title || !cover || !author || !year || !genre || !rating) {
         alert('Please fill all fields');
         return;
     }
 
     if (isEdit) {
         const index = movies.findIndex(m => m.id === editingId);
-        movies[index] = { id: editingId, title, cover, genre, rating: parseInt(rating) };
+        movies[index] = { id: editingId, title, cover, author, year: parseInt(year), genre, rating: parseInt(rating) };
     } else {
-        movies.push({ id: Date.now(), title, cover, genre, rating: parseInt(rating) });
+        movies.push({ id: Date.now(), title, cover, author, year: parseInt(year), genre, rating: parseInt(rating) });
     }
 
     saveMovies();
@@ -116,6 +120,8 @@ function displayMovies() {
             <img src="${movie.cover}" alt="${movie.title}">
             <div class="movie-info">
                 <h3>${movie.title}</h3>
+                <p class="author">${movie.author || 'Unknown'}</p>
+                <p class="year">${movie.year || 'N/A'}</p>
                 <p class="genre">${movie.genre}</p>
                 <p class="rating">${'★'.repeat(movie.rating)}${'☆'.repeat(5 - movie.rating)}</p>
             </div>

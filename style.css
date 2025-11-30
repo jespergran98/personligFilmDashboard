@@ -180,6 +180,18 @@ body {
     color: #333;
 }
 
+.author {
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 3px;
+}
+
+.year {
+    color: #999;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
 .genre {
     color: #667eea;
     font-size: 0.9rem;

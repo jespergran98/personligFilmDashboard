@@ -14,6 +14,10 @@ function sortMovies(sortBy) {
         movies.sort((a, b) => b.id - a.id);
     } else if (sortBy === 'genre') {
         movies.sort((a, b) => a.genre.localeCompare(b.genre));
+    } else if (sortBy === 'year') {
+        movies.sort((a, b) => (b.year || 0) - (a.year || 0));
+    } else if (sortBy === 'author') {
+        movies.sort((a, b) => (a.author || '').localeCompare(b.author || ''));
     }
     displayMovies();
 }
