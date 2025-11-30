@@ -23,3 +23,32 @@ body {
     font-weight: 700;
     text-align: center;
 }
+
+.main-section {
+    padding: 40px;
+}
+
+.add-button {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.plus-box {
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #999;
+    background-color: white;
+}
+
+.add-button p {
+    font-size: 0.9rem;
+    color: #666;
+}
