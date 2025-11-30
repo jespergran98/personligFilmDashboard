@@ -3,14 +3,16 @@ const moviesGrid = document.querySelector('.movies-grid');
 
 let movies = [];
 
-addButton.addEventListener('click', () => {
-    showAddMovieForm();
+addButton.addEventListener('click', (e) => {
+    // Only show form if clicking on the add button itself, not its children (like form buttons)
+    if (!addButton.classList.contains('form-active') && e.target === addButton || e.target.classList.contains('plus-box') || e.target === addButton.querySelector('p')) {
+        showAddMovieForm();
+    }
 });
 
 function showAddMovieForm() {
-    const existingForm = document.querySelector('.movie-form');
-    if (existingForm) return;
-
+    addButton.classList.add('form-active');
+    
     const formHTML = `
         <div class="movie-form">
             <h2>Add Movie/Series</h2>
@@ -43,13 +45,17 @@ function showAddMovieForm() {
                 </select>
             </div>
             <div class="form-buttons">
-                <button onclick="addMovie()">Add</button>
-                <button onclick="closeForm()">Cancel</button>
+                <button class="add-movie-btn">Add</button>
+                <button class="cancel-btn">Cancel</button>
             </div>
         </div>
     `;
     
-    moviesGrid.insertAdjacentHTML('beforebegin', formHTML);
+    addButton.insertAdjacentHTML('beforeend', formHTML);
+    
+    // Add event listeners to the buttons
+    document.querySelector('.add-movie-btn').addEventListener('click', addMovie);
+    document.querySelector('.cancel-btn').addEventListener('click', closeForm);
 }
 
 function addMovie() {
@@ -79,6 +85,7 @@ function addMovie() {
 function closeForm() {
     const form = document.querySelector('.movie-form');
     if (form) form.remove();
+    addButton.classList.remove('form-active');
 }
 
 function displayMovies() {
@@ -93,11 +100,18 @@ function displayMovies() {
                 <p class="genre">${movie.genre}</p>
                 <p class="rating">${'★'.repeat(movie.rating)}${'☆'.repeat(5 - movie.rating)}</p>
             </div>
-            <button class="delete-btn" onclick="deleteMovie(${movie.id})">Delete</button>
+            <button class="delete-btn" data-id="${movie.id}">Delete</button>
         </div>
     `).join('');
 
     moviesGrid.insertAdjacentHTML('beforeend', moviesHTML);
+    
+    // Add event listeners to delete buttons
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            deleteMovie(parseInt(this.dataset.id));
+        });
+    });
 }
 
 function deleteMovie(id) {

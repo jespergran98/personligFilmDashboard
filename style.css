@@ -44,6 +44,7 @@ body {
     background: white;
     border: 2px dashed #999;
     min-height: 400px;
+    padding: 20px;
 }
 
 .plus-box {
@@ -61,51 +62,59 @@ body {
     color: #666;
 }
 
+.add-button.form-active {
+    cursor: default;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.add-button.form-active .plus-box,
+.add-button.form-active > p {
+    display: none;
+}
+
 .movie-form {
-    background: white;
-    padding: 25px;
-    border: 1px solid #ddd;
-    max-width: 400px;
-    margin-bottom: 30px;
+    width: 100%;
 }
 
 .movie-form h2 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #333;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .movie-form input,
 .movie-form select {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 12px;
+    padding: 8px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-family: inherit;
 }
 
 .rating-input {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .rating-input label {
     display: block;
     margin-bottom: 6px;
     color: #555;
+    font-size: 0.9rem;
 }
 
 .form-buttons {
     display: flex;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 8px;
+    margin-top: 15px;
 }
 
 .form-buttons button {
     flex: 1;
-    padding: 10px;
+    padding: 8px;
     border: 1px solid #ccc;
-    font-size: 1rem;
+    font-size: 0.9rem;
     cursor: pointer;
     background: white;
 }
