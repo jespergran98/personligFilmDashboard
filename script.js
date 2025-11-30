@@ -25,6 +25,9 @@ addButton.addEventListener('click', (e) => {
 });
 
 function showForm(movie = null, cardElement = null) {
+    // Close any existing forms first
+    closeForm();
+    
     const container = cardElement || addButton;
     const isEdit = movie !== null;
     
@@ -90,12 +93,19 @@ function saveMovie(isEdit) {
 }
 
 function closeForm() {
-    document.querySelector('.movie-form')?.remove();
+    // Remove all forms
+    document.querySelectorAll('.movie-form').forEach(form => form.remove());
+    
+    // Remove form-active class from add button
     addButton.classList.remove('form-active');
-    if (editingId) {
-        document.querySelector(`[data-id="${editingId}"]`)?.closest('.movie-card')?.classList.remove('form-active');
-        editingId = null;
-    }
+    
+    // Remove form-active class from all movie cards
+    document.querySelectorAll('.movie-card.form-active').forEach(card => {
+        card.classList.remove('form-active');
+    });
+    
+    // Reset editing ID
+    editingId = null;
 }
 
 function displayMovies() {
