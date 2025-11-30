@@ -70,56 +70,48 @@ Lag en enkel, men intuitiv UI der data kan legges til, vises, filtreres og slett
 
 ---
 
+## NOTATER:
 
-NOTATER:
-
-blank side med header, og et "add film or series" element.
+Blank side med header, og et "add film or series" element.
 
 Hvert dataelement i localStorage bør være et JavaScript-objekt med følgende egenskaper:
 
-UUID
-
-Title
-
-image/ cover art
-
-Genre:
-Action
-Comedy
-Drama
-Sci-Fi
-Horror
-Fantasy
-Romance
-Crime
-Western
-Musical
-Animation
-Documentary
-
-rating (1-5)
+- UUID
+- Title
+- Author/Director
+- Year (release year)
+- Image/cover art
+- Genre:
+  - Action, Comedy, Drama, Sci-Fi, Horror, Fantasy, Romance, Crime, Western, Musical, Animation, Documentary
+- Rating (1-5)
 
 ---
 
-localStorage key: 'movies'
-Data struktur: Array av objekter [{id, title, cover, genre, rating}, ...]
-Star ratings: Bruker Unicode-tegn ★ (filled) og ☆ (empty)
-Form plassering: Forms vises inline i kortet/add-button ved editing
-Sortering: Implementert i filter.js med .sort() metoder:
-localeCompare() for streng-sammenligning (title, genre)
+**localStorage key:** `'movies'`
 
---
+**Data struktur:** Array av objekter `[{id, title, cover, author, year, genre, rating}, ...]`
 
-Implementerte funksjoner:
-Legge til film/serie med alle påkrevde felter
-Lagring i localStorage
-Oppdatere eksisterende filmer (edit-funksjon)
-Slette enkeltfilmer
-Sortering (dropdown i header med filter.js):
+**Star ratings:** Bruker Unicode-tegn ★ (filled) og ☆ (empty)
 
-Dato lagt til (nyeste først)
-Rating (høyeste først)
-Alfabetisk (A-Å)
-Genre (alfabetisk)
-UUID-system (bruker Date.now() som ID)
-Form-validering (alle felt må fylles ut)
+**Form plassering:** Forms vises inline i kortet/add-button ved editing
+
+**Sortering:** Implementert i filter.js med .sort() metoder:
+- `localeCompare()` for streng-sammenligning (title, genre, author)
+- Numerisk sammenligning for rating og year
+
+---
+
+### Implementerte funksjoner:
+- Legge til film/serie med alle påkrevde felter (title, cover, author, year, genre, rating)
+- Lagring i localStorage
+- Oppdatere eksisterende filmer (edit-funksjon)
+- Slette enkeltfilmer
+- Sortering (dropdown i header med filter.js):
+  - Dato lagt til (nyeste først)
+  - Rating (høyeste først)
+  - Alfabetisk (A-Å)
+  - Genre (alfabetisk)
+  - Utgivelsesår (nyeste først)
+  - Forfatter/Regissør (alfabetisk)
+- UUID-system (bruker Date.now() som ID)
+- Form-validering (alle felt må fylles ut)
